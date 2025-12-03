@@ -1,0 +1,13 @@
+{
+    "metadata": {
+        "duration": "3.1s",
+        "fps": "5.7"
+    },
+    "behavior_analysis": {
+        "facial_expression": "Concentrated / Serious",
+        "detailed_emotion": "Mainly Neutral, but shows traces of Sadness (16.3%)",
+        "head_gesture": "Head Nodding (Positive/Understood)",
+        "body_posture": "Leaning Backward (Relaxed/Bored)"
+    },
+    "final_interpretation_for_llm": "User is sitting back, possibly bored or just skimming. User is nodding, indicating agreement or understanding."
+}
