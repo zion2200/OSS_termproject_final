@@ -168,11 +168,13 @@ def process_csv_to_json(csv_path, option_data, session_id):
             "session_id": session_id,
             "option_id": option_data.get('id', 'unknown'),
             "timestamp": pd.Timestamp.now().isoformat(),
-            "csv_source": os.path.basename(csv_path)
+            "csv_source": os.path.basename(csv_path),
+            "user_context": option_data.get('user_context', 'Unknown Context')
         },
         "stimulus_content": {
             "title": option_data.get('title', ''),
             "summary": option_data.get('summary', ''),
+            "buying_point": option_data.get('buying_point', ''),
             "pros": option_data.get('pros', []),
             "cons": option_data.get('cons', [])
         },
