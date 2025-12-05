@@ -98,6 +98,13 @@ def process_csv_to_json(csv_path, option_data, session_id):
         print(f"[ERR] Failed to load CSV: {e}")
         return None
 
+    # [방어 코드 추가] 필수 컬럼 확인
+    required_cols = ['nose_x', 'nose_vis', 'left_shoulder_z']
+    for col in required_cols:
+        if col not in df.columns:
+            print(f"[ERR] Missing column '{col}' in CSV. Skipping this file.")
+            return None
+
     if len(df) < 5:
         print("[WARN] CSV data too short.")
         return None

@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "session_id": "62df57c9",
+    "option_id": "opt1",
+    "timestamp": "2025-12-05T16:57:10.865067",
+    "csv_source": "62df57c9_opt1_165655.csv"
+  },
+  "stimulus_content": {
+    "title": "인간-컴퓨터 상호작용 (HCI)",
+    "summary": "인간과 컴퓨터 시스템 간의 상호작용을 연구하고 설계하는 분야입니다. 사용자 경험(UX)과 사용성(Usability)을 최적화하여 기술을 더 직관적이고 효율적으로 만드는 데 중점을 둡니다.",
+    "pros": [
+      "사용자 경험 및 만족도 향상",
+      "생산성 및 효율성 증대",
+      "기술 접근성 개선",
+      "혁신적인 인터페이스 개발 가능성"
+    ],
+    "cons": [
+      "초기 설계 및 개발 비용 높음",
+      "사용자 연구 및 테스트에 시간 소요",
+      "기술 발전 속도에 따른 지속적인 업데이트 필요",
+      "복잡한 시스템에서 모든 사용자 니즈 충족 어려움"
+    ]
+  },
+  "behavior_metrics": {
+    "duration_sec": 9.179292678833008,
+    "fps_mean": 9.117294090781556,
+    "dominant_emotion": {
+      "emotion": "Sadness",
+      "score": 32.05847761187798
+    },
+    "emotion_full_stats": {
+      "Anger": 4.603752778031123,
+      "Contempt": 2.716916072397278,
+      "Disgust": 0.04206566212442102,
+      "Fear": 0.28479262423038915,
+      "Happiness": 0.41019104224128217,
+      "Neutral": 56.6026189770454,
+      "Sadness": 32.05847761187798,
+      "Surprise": 3.2811855724176917
+    },
+    "posture": {
+      "label": "Stable Posture",
+      "z_diff": 0.02777037974716967
+    },
+    "gesture": {
+      "label": "Head Shaking (Negative/Confusion)",
+      "var_x": 0.7568782629590707,
+      "var_y": 0.1501428969594044
+    },
+    "gaze": {
+      "label": "Highly Focused (Stable Gaze)"
+    }
+  },
+  "rule_based_interpretation": "Head shaking was detected, indicating confusion, disagreement, or rejection. Traces of 'Sadness' were found, which in this context often implies deep concentration.",
+  "expert_analysis": null
+}

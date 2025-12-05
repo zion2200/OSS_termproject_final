@@ -6,6 +6,7 @@ import time
 import os
 import csv
 from datetime import datetime
+from PIL import Image, ImageDraw, ImageFont  # [추가됨] 한글 출력을 위한 PIL
 from facenet_pytorch import MTCNN
 from emotiefflib.facial_analysis import EmotiEffLibRecognizer
 import mediapipe as mp
@@ -25,44 +26,73 @@ class BehaviorRecorder:
         if USE_POSE:
             self.mp_pose = mp.solutions.pose
             self.mp_drawing = mp.solutions.drawing_utils
-            self.pose = self.mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+            self.pose = self.mp_pose.Pose(
+                static_image_mode=False,
+                model_complexity=1,
+                min_detection_confidence=0.5, 
+                min_tracking_confidence=0.5
+            )
 
         self.emotion_labels = ["Anger", "Contempt", "Disgust", "Fear", "Happiness", "Neutral", "Sadness", "Surprise"]
-        self.landmark_names = ["nose", "left_eye", "right_eye", "left_ear", "right_ear", "left_shoulder", "right_shoulder"] # 필요한 것만 정의하거나 전체 정의
+        
+        self.csv_fieldnames = [
+            "t", "fps", "top_emotion"
+        ] + [f"prob_{emo}" for emo in self.emotion_labels] + [
+            "nose_x", "nose_y", "nose_vis",
+            "left_shoulder_z", "left_shoulder_vis",
+            "right_shoulder_z", "right_shoulder_vis"
+        ]
+
+    def put_korean_text(self, img, text, pos, font_size, color):
+        """
+        OpenCV 이미지(numpy array)를 받아 한글 텍스트를 그리고 반환하는 함수
+        """
+        # 1. OpenCV(BGR) -> PIL(RGB) 변환
+        img_pil = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+        draw = ImageDraw.Draw(img_pil)
+        
+        # 2. 폰트 로드 (Windows의 맑은 고딕 사용, 없으면 기본 폰트)
+        try:
+            font = ImageFont.truetype("malgun.ttf", font_size)
+        except OSError:
+            # 맥/리눅스나 폰트가 없을 경우 기본 폰트 사용 (한글 깨질 수 있음)
+            font = ImageFont.load_default()
+            
+        # 3. 텍스트 그리기
+        draw.text(pos, text, font=font, fill=color)
+        
+        # 4. PIL(RGB) -> OpenCV(BGR) 변환 후 반환
+        return cv2.cvtColor(np.array(img_pil), cv2.COLOR_RGB2BGR)
 
     def record_session(self, option_data, session_id):
-        """
-        특정 선택지(option_data)를 화면에 띄우고 사용자가 확인(Space/Enter)할 때까지 녹화.
-        저장된 CSV 파일 경로를 반환.
-        """
         cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         if not cap.isOpened():
             print("[ERROR] Webcam not found.")
             return None
 
-        # 화면에 띄울 텍스트 준비 (제목 및 요약)
-        title = option_data.get('title', 'Option')
-        summary = option_data.get('summary', '')[:50] + "..." # 너무 길면 자름
-
-        # 로깅 변수
+        # 텍스트 준비
+        title_text = f"제목: {option_data.get('title', 'Option')}"
+        summary_text = option_data.get('summary', '')
+        
+        is_recording = False
+        start_time = 0
         records = []
-        start_time = time.time()
+        
         filename = os.path.join(LOG_DIR, f"{session_id}_{option_data['id']}_{datetime.now().strftime('%H%M%S')}.csv")
         
-        print(f"[REC] Recording started for: {title}. Press 'SPACE' to confirm and next.")
+        print(f"[READY] Webcam opened. Press ENTER to start reading '{option_data['title']}'.")
 
         while True:
             ret, frame = cap.read()
             if not ret: break
             
-            curr_time = time.time()
-            fps = 1.0 / (curr_time - start_time + 1e-6) # 단순 계산
+            # 미러링 (거울 모드) - 선택 사항
+            # frame = cv2.flip(frame, 1)
             
-            # --- 1. 분석 (Pose & Emotion) ---
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             display_frame = frame.copy()
             
-            # Pose
+            # --- 1. Pose ---
             pose_landmarks = None
             if self.pose:
                 res = self.pose.process(frame_rgb)
@@ -70,73 +100,111 @@ class BehaviorRecorder:
                     self.mp_drawing.draw_landmarks(display_frame, res.pose_landmarks, self.mp_pose.POSE_CONNECTIONS)
                     pose_landmarks = res.pose_landmarks.landmark
 
-            # Emotion
-            boxes, _ = self.mtcnn.detect(frame_rgb)
+            # --- 2. Emotion ---
             faces = self.mtcnn(frame_rgb)
-            
             top_emo = "none"
             probs = np.zeros(8)
             
             if faces is not None:
-                # (간략화) 첫 번째 얼굴만 처리
                 if isinstance(faces, torch.Tensor) and faces.ndim == 4:
                     face_np = faces[0].permute(1, 2, 0).cpu().numpy()
                     face_np = (face_np * 128 + 127.5).clip(0, 255).astype(np.uint8)
                     _, scores = self.rec.predict_emotions([face_np], logits=False)
                     probs = np.array(scores)[0]
                     top_emo = self.emotion_labels[np.argmax(probs)]
-
-            # --- 2. 데이터 수집 ---
-            row = {
-                "t": curr_time - start_time,
-                "fps": fps,
-                "top_emotion": top_emo,
-            }
-            for i, label in enumerate(self.emotion_labels):
-                row[f"prob_{label}"] = probs[i] * 100
             
-            # Pose Data (필요한 코, 어깨 등만 저장 예시)
-            if pose_landmarks:
-                row["nose_x"] = pose_landmarks[0].x
-                row["nose_y"] = pose_landmarks[0].y
-                row["left_shoulder_z"] = pose_landmarks[11].z
-                row["left_shoulder_vis"] = pose_landmarks[11].visibility
-                # ... 필요한 랜드마크 추가 ...
+            # --- 3. UI 그리기 (한글 적용) ---
+            
+            if not is_recording:
+                # [대기 모드]
+                cv2.rectangle(display_frame, (0, 0), (640, 80), (50, 50, 50), -1)
+                
+                # 한글 출력 함수 사용
+                display_frame = self.put_korean_text(display_frame, "대기 모드 (STANDBY)", (20, 10), 30, (0, 255, 255))
+                display_frame = self.put_korean_text(display_frame, "[Enter]를 눌러 녹화 및 텍스트 시작", (20, 50), 20, (255, 255, 255))
+                
             else:
-                row["nose_x"] = -999
-                row["left_shoulder_z"] = -999
-                row["left_shoulder_vis"] = 0
+                # [녹화 모드]
+                curr_time = time.time()
+                t_elapsed = curr_time - start_time
+                fps = 1.0 / (0.001 + (t_elapsed / (len(records)+1)))
 
-            records.append(row)
+                # 상단 배경 박스
+                cv2.rectangle(display_frame, (0, 0), (640, 160), (0, 0, 0), -1)
+                
+                # 제목 출력
+                display_frame = self.put_korean_text(display_frame, title_text, (10, 20), 25, (255, 255, 255))
+                
+                # 요약문 줄바꿈 처리 및 출력
+                y_pos = 60
+                # 35글자씩 끊어서 출력
+                chunk_size = 35
+                for i in range(0, len(summary_text), chunk_size):
+                    line = summary_text[i:i+chunk_size]
+                    display_frame = self.put_korean_text(display_frame, line, (10, y_pos), 18, (200, 200, 200))
+                    y_pos += 25
+                
+                display_frame = self.put_korean_text(display_frame, "[녹화중] 종료하려면 Space 바를 누르세요", (10, 135), 20, (0, 0, 255))
 
-            # --- 3. UI 표시 ---
-            # 상단에 LLM 내용 표시 (OpenCV는 한글 지원 미흡하므로 영문 ID나 간단한 표시 권장, 혹은 PIL로 한글 그리기)
-            cv2.putText(display_frame, f"Read: {option_data['id']}", (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            cv2.putText(display_frame, f"Emotion: {top_emo}", (20, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
-            cv2.putText(display_frame, "Press SPACE to Confirm", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+                # 데이터 수집 (CSV용)
+                row = {
+                    "t": t_elapsed,
+                    "fps": fps,
+                    "top_emotion": top_emo
+                }
+                for i, label in enumerate(self.emotion_labels):
+                    row[f"prob_{label}"] = probs[i] * 100
+                
+                # Pose Data Filling
+                row["nose_x"] = -999; row["nose_y"] = -999; row["nose_vis"] = 0
+                row["left_shoulder_z"] = -999; row["left_shoulder_vis"] = 0
+                row["right_shoulder_z"] = -999; row["right_shoulder_vis"] = 0
 
+                if pose_landmarks:
+                    row["nose_x"] = pose_landmarks[0].x
+                    row["nose_y"] = pose_landmarks[0].y
+                    row["nose_vis"] = pose_landmarks[0].visibility
+
+                    row["left_shoulder_z"] = pose_landmarks[11].z
+                    row["left_shoulder_vis"] = pose_landmarks[11].visibility
+                    
+                    row["right_shoulder_z"] = pose_landmarks[12].z
+                    row["right_shoulder_vis"] = pose_landmarks[12].visibility
+
+                records.append(row)
+
+            # 화면 출력
             cv2.imshow("Experiment", display_frame)
-
             key = cv2.waitKey(1) & 0xFF
-            if key == ord(' '): # 스페이스바로 종료
-                break
-            elif key == ord('q'): # 강제 종료
-                cap.release()
-                cv2.destroyAllWindows()
-                return None
-
+            
+            if not is_recording:
+                if key == 13: # Enter
+                    is_recording = True
+                    start_time = time.time()
+                    print(f"[REC] Started recording for '{title_text}'")
+                elif key == ord('q'):
+                    print("[STOP] Quit by user")
+                    cap.release()
+                    cv2.destroyAllWindows()
+                    return None
+            else:
+                if key == 32: # Space
+                    print("[STOP] Finished recording.")
+                    break
+        
         cap.release()
         cv2.destroyAllWindows()
         
-        # CSV 저장
         self.save_csv(filename, records)
         return filename
 
     def save_csv(self, filename, records):
-        if not records: return
-        keys = records[0].keys()
+        if not records: 
+            print("[WARN] No records to save.")
+            return
+        # [중요] csv_fieldnames 사용
         with open(filename, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=keys)
+            writer = csv.DictWriter(f, fieldnames=self.csv_fieldnames)
             writer.writeheader()
             writer.writerows(records)
         print(f"[SAVE] Log saved to {filename}")
