@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "session_id": "419dc15c",
+    "option_id": "opt1",
+    "timestamp": "2025-12-05T19:42:42.192908",
+    "csv_source": "419dc15c_opt1_194231.csv",
+    "user_context": "오픈소스소프트웨어 강의의 프로젝트를 완성했다고 제출할지 고민중이야"
+  },
+  "stimulus_content": {
+    "title": "오픈소스 프로젝트 제출",
+    "summary": "이미 완성된 프로젝트이므로, 제출을 통해 이 과제에 대한 부담을 덜고 다음 계획에 집중할 수 있습니다. 과제 완료의 불확실성을 해소하고 다른 중요한 학업에 시간을 할애할 수 있는 현명한 선택입니다.",
+    "buying_point": "이 과제를 빠르게 마무리하고 다른 급한 학업에 집중할 수 있습니다.",
+    "pros": [
+      "프로젝트 제출 완료로 인한 심리적 부담을 해소할 수 있습니다.",
+      "다른 시험 공부 등 더 시급한 과제에 시간과 에너지를 효과적으로 할당할 수 있습니다.",
+      "완성되었다고 판단했으므로, 더 미루는 것보다 빠르게 제출하는 것이 효율적입니다."
+    ],
+    "cons": [
+      "혹시라도 놓쳤을지 모르는 사소한 오류나 개선점을 최종적으로 점검할 기회를 잃을 수 있습니다.",
+      "제출 후 더 좋은 아이디어가 떠오르더라도 수정할 수 없습니다."
+    ]
+  },
+  "behavior_metrics": {
+    "duration_sec": 5.805630445480347,
+    "fps_mean": 7.145766012839518,
+    "dominant_emotion": {
+      "emotion": "Sadness",
+      "score": 29.465281441807747
+    },
+    "emotion_full_stats": {
+      "Anger": 4.462661519646645,
+      "Contempt": 6.989027727395296,
+      "Disgust": 0.1158657461928669,
+      "Fear": 0.10101798034156668,
+      "Happiness": 1.2536119238939136,
+      "Neutral": 57.17325180768967,
+      "Sadness": 29.465281441807747,
+      "Surprise": 0.43928127619437873
+    },
+    "posture": {
+      "label": "Leaning Backward (Relaxed/Low Interest)",
+      "z_diff": -0.05932605266571045
+    },
+    "gesture": {
+      "label": "Head Shaking (Negative/Confusion)",
+      "var_x": 0.32004554509749944,
+      "var_y": 0.045274514398344484
+    },
+    "gaze": {
+      "label": "Highly Focused (Stable Gaze)"
+    }
+  },
+  "rule_based_interpretation": "The user leaned backward, suggesting a relaxed state or potential disinterest. Head shaking was detected, indicating confusion, disagreement, or rejection. Traces of 'Sadness' were found, which in this context often implies deep concentration.",
+  "expert_analysis": null
+}

@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "session_id": "44cb3714",
+    "option_id": "opt2",
+    "timestamp": "2025-12-05T19:09:34.995425",
+    "csv_source": "44cb3714_opt2_190917.csv",
+    "user_context": "너한테 없을 정보의 게임이 내일 출시되고, 기존에 즐겁게 하던 게임이 내일 업데이트 하는데 어떤걸 먼저 해볼까"
+  },
+  "stimulus_content": {
+    "title": "즐겨하던 게임 B 업데이트",
+    "summary": "이미 즐겁게 플레이하던 게임 B의 업데이트는 익숙함 속에서 새로운 재미를 안정적으로 추가할 수 있는 선택입니다. 검증된 재미와 안정적인 플레이를 선호하며, 기존 캐릭터와 커뮤니티와의 연속성을 중요하게 생각한다면 후회 없는 즐거움을 보장할 것입니다.",
+    "buying_point": "이미 재미가 검증된 게임에 새로운 콘텐츠가 더해져 익숙하면서도 신선한 즐거움을 안정적으로 누릴 수 있습니다.",
+    "pros": [
+      "검증된 재미와 안정성: 이미 즐거웠던 게임이므로 재미를 보장받을 수 있습니다.",
+      "익숙한 플레이 환경: 새로운 적응 없이 바로 게임을 즐길 수 있습니다.",
+      "기존 콘텐츠와의 시너지: 업데이트된 내용이 기존 캐릭터나 아이템과 잘 어우러질 수 있습니다.",
+      "플레이 흐름 연속성: 기존에 키우던 캐릭터와 커뮤니티 활동을 계속 이어나갈 수 있습니다.",
+      "정보 기반의 선택: 업데이트 내용에 대한 정보를 미리 확인하고 플레이할 수 있습니다."
+    ],
+    "cons": [
+      "새로운 경험 부족: 이미 익숙한 게임이라 신선함이 덜할 수 있습니다.",
+      "기대 이하의 업데이트: 업데이트 내용이 예상보다 실망스러울 수 있습니다.",
+      "초기 버그 가능성: 업데이트 직후 새로운 버그가 발생할 수도 있습니다.",
+      "신작 게임 경험 기회 상실: 게임 A의 초기 분위기나 이벤트를 놓칠 수 있습니다."
+    ]
+  },
+  "behavior_metrics": {
+    "duration_sec": 13.9662446975708,
+    "fps_mean": 6.795660057697218,
+    "dominant_emotion": {
+      "emotion": "Sadness",
+      "score": 33.31413789782473
+    },
+    "emotion_full_stats": {
+      "Anger": 3.7412055297404208,
+      "Contempt": 4.7459204571061235,
+      "Disgust": 0.06417384700066035,
+      "Fear": 0.12626588621216833,
+      "Happiness": 0.7677293978431212,
+      "Neutral": 56.475187245235645,
+      "Sadness": 33.31413789782473,
+      "Surprise": 0.7653793753174845
+    },
+    "posture": {
+      "label": "Leaning Forward (High Engagement)",
+      "z_diff": 0.05158730428764424
+    },
+    "gesture": {
+      "label": "Head Shaking (Negative/Confusion)",
+      "var_x": 6.318295892899596,
+      "var_y": 1.3510583593794327
+    },
+    "gaze": {
+      "label": "Normal Gaze"
+    }
+  },
+  "rule_based_interpretation": "The user leaned forward, indicating active interest or cognitive engagement. Head shaking was detected, indicating confusion, disagreement, or rejection. Traces of 'Sadness' were found, which in this context often implies deep concentration.",
+  "expert_analysis": "피험자는 즐겨하던 게임 업데이트에 대해 최고점인 5점의 강한 긍정적 선호를 명확히 표현했으며, 이는 몸을 앞으로 기울여 보인 높은 인지적 참여 및 적극적인 관심과 일치합니다. AI가 감지한 '슬픔' 감정은 맥락상 깊은 몰입과 집중을 의미하며, 고개를 젓는 행동은 \"후회 없는 즐거움의 보장\"이라는 문구에 대한 기대감 속에서도 내용의 의미를 신중하게 평가하는 과정으로 해석됩니다. 이러한 비언어적 신호들은 단순한 호감을 넘어, 피험자가 해당 업데이트에 대해 매우 깊이 있고 비판적으로 사고하며 적극적으로 관여하고 있음을 강력히 시사합니다.",
+  "ground_truth_preference": 5
+}

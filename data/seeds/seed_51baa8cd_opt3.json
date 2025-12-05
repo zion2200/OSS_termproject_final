@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "session_id": "51baa8cd",
+    "option_id": "opt3",
+    "timestamp": "2025-12-05T18:32:38.100568",
+    "csv_source": "51baa8cd_opt3_183211.csv",
+    "user_context": "진학할 대학원의 주제를 선택해야하는데 고민하고 있어"
+  },
+  "stimulus_content": {
+    "title": "디지털 트윈",
+    "summary": "현실 세계의 복잡한 시스템을 가상 공간에서 구현하고 최적화하는 데 관심이 있다면 디지털 트윈은 강력한 선택입니다. 제조, 도시, 헬스케어 등 산업 전반에 걸쳐 혁신을 주도하며 실제 문제 해결에 기여할 수 있는 잠재력이 큽니다. 실용적인 문제 해결과 데이터 기반 분석에 흥미가 있다면 좋은 방향입니다.",
+    "buying_point": "현실 세계의 복잡한 문제를 가상 시뮬레이션으로 해결하며, 다양한 산업 분야에서 실질적인 가치를 창출하고 싶다면 디지털 트윈이 이상적입니다.",
+    "pros": [
+      "산업 전반에 걸친 높은 활용성: 제조, 스마트 도시, 헬스케어 등 다양한 산업 분야에서 수요가 높아 졸업 후 진로가 폭넓습니다.",
+      "실제 문제 해결에 기여: 시뮬레이션을 통해 효율성 증대, 비용 절감 등 기업과 사회에 실질적인 가치를 창출할 수 있습니다.",
+      "데이터 과학, AI, IoT 등 다양한 기술 융합: 폭넓은 기술 스택을 경험하고 발전시킬 수 있어 다재다능한 전문가로 성장할 수 있습니다."
+    ],
+    "cons": [
+      "방대한 데이터 처리 및 모델링 능력 요구: 대규모 데이터와 복잡한 시스템 모델링에 대한 깊은 이해와 기술이 필수적입니다.",
+      "초기 구축 비용 및 시간이 많이 소요: 실제 시스템을 디지털화하는 과정이 복잡하고 자원 집약적이어서 프로젝트 규모가 클 수 있습니다.",
+      "특정 산업 도메인 지식 요구: 해당 산업에 대한 깊은 이해가 없으면 연구 방향 설정 및 문제 해결에 어려움을 겪을 수 있습니다."
+    ]
+  },
+  "behavior_metrics": {
+    "duration_sec": 12.992552280426024,
+    "fps_mean": 6.438163560050647,
+    "dominant_emotion": {
+      "emotion": "Sadness",
+      "score": 38.51534152104531
+    },
+    "emotion_full_stats": {
+      "Anger": 6.979251091862902,
+      "Contempt": 3.942555313309034,
+      "Disgust": 0.18248209337427934,
+      "Fear": 0.306187722441039,
+      "Happiness": 0.4613598077098069,
+      "Neutral": 47.97524062939632,
+      "Sadness": 38.51534152104531,
+      "Surprise": 1.6375817007810614
+    },
+    "posture": {
+      "label": "Leaning Backward (Relaxed/Low Interest)",
+      "z_diff": -0.05338123438258968
+    },
+    "gesture": {
+      "label": "Head Nodding (Positive/Understood)",
+      "var_x": 1.658884452243711,
+      "var_y": 3.6089006050888384
+    },
+    "gaze": {
+      "label": "Normal Gaze"
+    }
+  },
+  "rule_based_interpretation": "The user leaned backward, suggesting a relaxed state or potential disinterest. Frequent head nodding was observed, a strong sign of agreement or understanding. Traces of 'Sadness' were found, which in this context often implies deep concentration.",
+  "expert_analysis": "사용자는 '디지털 트윈' 콘텐츠에 대해 3점의 중간 선호도를 보였으며, 특정 산업 분야에 대한 흥미와 비흥미가 공존한다고 진술했습니다. 관찰된 잦은 고개 끄덕임과 집중 상태를 시사하는 '슬픔' 감지는 사용자가 헬스케어 및 산업 전반의 혁신적 측면에 대해 깊이 이해하고 몰입했음을 나타냅니다. 다소 뒤로 기댄 자세는 편안한 상태에서 복합적인 정보를 처리하는 경향을 보여주며, 이는 주관적 의견에서 언급된 상반된 관심사 속에서도 전반적인 콘텐츠에 대한 인지적 참여가 활발했음을 시사합니다.",
+  "ground_truth_preference": 3
+}
