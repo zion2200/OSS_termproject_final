@@ -2,8 +2,8 @@
 import os
 
 # 1. API KEY (환경 변수에서 가져오거나 직접 입력)
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "YOUR_API_KEY_HERE")
-
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "YOUR_API_KEY")
+# YOUR_API_KEY
 # 2. 경로 설정
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")

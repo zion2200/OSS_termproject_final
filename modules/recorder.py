@@ -71,8 +71,17 @@ class BehaviorRecorder:
             return None
 
         # 텍스트 준비
+        # 텍스트 준비 부분
         title_text = f"제목: {option_data.get('title', 'Option')}"
-        summary_text = option_data.get('summary', '')
+        
+        # [수정] 요약문 + 결정적 한 방을 합쳐서 더 강력하게 보여줌
+        summary_raw = option_data.get('summary', '')
+        buying_point = option_data.get('buying_point', '')
+        
+        if buying_point:
+            summary_text = f"{summary_raw} \n\n★핵심: {buying_point}"
+        else:
+            summary_text = summary_raw
         
         is_recording = False
         start_time = 0

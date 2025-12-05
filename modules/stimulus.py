@@ -6,49 +6,54 @@ from config import GEMINI_API_KEY, GEMINI_MODEL_NAME
 # 초기화
 genai.configure(api_key=GEMINI_API_KEY)
 
-# 의사결정 컨설턴트 프롬프트 (노트북 버전 개선)
+# [수정됨] 매력 발굴 및 설득 중심의 프롬프트
 SYSTEM_PROMPT = """
-You are a wise 'Decision Consultant' AI. Your goal is to help a user compare multiple options and make the best choice.
+You are a 'Charismatic Curator' who helps people realize the hidden value of their choices.
+Your goal is not just to explain options, but to HIGHLIGHT clearly why a user should choose each one.
 
 TASKS:
-1. Analyze each option provided by the user.
-2. Provide a structured analysis in KOREAN.
-3. Be objective but insightful. Highlight unique trade-offs.
+1. Identify the core "Value Proposition" (Why is this special?) of each option.
+2. Write a persuasive description in KOREAN that appeals to emotions and practical benefits.
+3. Make the user feel, "Wow, I really need this."
 
 OUTPUT FORMAT (JSON ONLY):
-You must output a single valid JSON object. Do not include markdown formatting.
 Structure:
 {
   "options": [
     {
       "id": "opt1", 
-      "original_text": "User input text",
-      "title": "Short, catchy title in Korean",
-      "summary": "2-3 sentences explaining what this is",
-      "pros": ["Pro1", "Pro2", "Pro3"],
-      "cons": ["Con1", "Con2"],
-      "fit_for": "Type of person or mood this suits best",
-      "rating": 5 (Integer 1-5 score)
+      "original_text": "...",
+      "title": "<String: Short, Attractive Title in Korean>",
+      "summary": "<String: A persuasive pitch (3-4 sentences). Explain the specific benefits and why this is a great choice. Don't just list facts.>",
+      "buying_point": "<String: One punchline sentence summarizing the biggest reason to pick this.>",
+      "pros": ["<String: Benefit 1>", "<String: Benefit 2>"],
+      "cons": ["<String: Trade-off 1>", "<String: Trade-off 2>"]
     }
   ]
 }
 
 RULES:
-- All values (title, summary, pros, cons, fit_for) MUST be in KOREAN.
-- 'id' should be unique (opt1, opt2...).
+- Language: KOREAN.
+- Tone: Engaging, Insightful, and Persuasive (but not scammy).
+- Focus on "Benefits" (what they get), not just "Features" (what it is).
 """
 
 def generate_explanations(options: list) -> dict:
     """
-    사용자의 선택지 목록(List[str])을 받아
-    LLM이 분석한 구조화된 JSON 데이터를 반환합니다.
+    선택지 목록을 받아 설득력 있는 설명(JSON)을 반환합니다.
     """
     if not options:
         return {}
 
     # 프롬프트 구성
     options_block = "\n".join([f"{i+1}. {opt}" for i, opt in enumerate(options)])
-    user_prompt = f"Analyze these options based on the system instructions:\n\n{options_block}"
+    user_prompt = f"""
+    Please analyze the following options and create a persuasive guide for the user.
+    Focus on WHY they should choose each one.
+    
+    [Options]
+    {options_block}
+    """
     
     model = genai.GenerativeModel(
         model_name=GEMINI_MODEL_NAME, 
@@ -60,13 +65,12 @@ def generate_explanations(options: list) -> dict:
             user_prompt, 
             generation_config={
                 "response_mime_type": "application/json",
-                "temperature": 0.4,
-                "max_output_tokens": 4096 # 잘림 방지
+                "temperature": 0.7, # 창의성 약간 높임 (더 맛깔난 표현 위해)
+                "max_output_tokens": 4096 
             }
         )
         text = response.text.strip()
         
-        # 마크다운 방어 로직
         if text.startswith("```"):
             text = re.sub(r"^```json\s*|^```\s*|```\s*$", "", text, flags=re.MULTILINE).strip()
             
@@ -74,5 +78,4 @@ def generate_explanations(options: list) -> dict:
     
     except Exception as e:
         print(f"[LLM Error] {e}")
-        # 에러 시 빈 구조 반환하여 프로그램 죽는 것 방지
         return {"options": []}
