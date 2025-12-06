@@ -84,16 +84,13 @@ pip install -r requirements.txt
 `config.py` 파일을 열어 Google Gemini API 키를 입력합니다.
 *(주의: API 키는 GitHub에 절대 업로드하지 마세요.)*
 
-`python
+``python
 # config.py
 import os
 
 # 방법 1. 직접 입력 (로컬 테스트용)
 GEMINI_API_KEY = "YOUR_ACTUAL_API_KEY_HERE"
-
-# 방법 2. 환경 변수 사용 (권장)
-# GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-`
+``
 
 ### 3. 실행 (Run)
 메인 프로그램을 실행하여 실험을 시작합니다.
