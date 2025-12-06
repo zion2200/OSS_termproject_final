@@ -122,7 +122,6 @@ python main.py
 
 ### **[Part 3] 라이선스 및 참고문헌**
 
-```markdown
 ---
 
 ## ⚖️ 라이선스 및 참고문헌 (License & References)
