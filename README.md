@@ -80,11 +80,11 @@ cd OSS_termproject_final
 # Install Dependencies
 pip install -r requirements.txt
 
-2. API 키 설정 (Configuration)
-config.py 파일을 열어 Google Gemini API 키를 입력합니다. (주의: API 키는 GitHub에 절대 업로드하지 마세요.)
+### 2. API 키 설정 (Configuration)
+`config.py` 파일을 열어 Google Gemini API 키를 입력합니다.
+*(주의: API 키는 GitHub에 절대 업로드하지 마세요.)*
 
-Python
-
+`python
 # config.py
 import os
 
@@ -93,17 +93,23 @@ GEMINI_API_KEY = "YOUR_ACTUAL_API_KEY_HERE"
 
 # 방법 2. 환경 변수 사용 (권장)
 # GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-3. 실행 (Run)
+`
+
+### 3. 실행 (Run)
 메인 프로그램을 실행하여 실험을 시작합니다.
-
-Bash
-
+`bash
 python main.py
-📂 디렉토리 구조 (Directory Structure)
+`
+
+---
+
+## 📂 디렉토리 구조 (Directory Structure)
+
+```text
 📦 OSS_termproject_final
  ┣ 📂 data
  ┃ ┣ 📂 logs                # 웹캠으로 수집된 Raw CSV 데이터
- ┃ ┗ 📂 seeds               # 전처리 및 분석된 JSON 데이터
+ ┃ ┗ 📂 seeds               # 전처리 및 분석된 JSON 행동 데이터
  ┣ 📂 figure                # README 및 시연용 이미지/영상
  ┣ 📂 modules               # 핵심 기능 모듈
  ┃ ┣ 📜 stimulus.py         # LLM 큐레이터 (자극 생성)
@@ -118,23 +124,33 @@ python main.py
  ┣ 📜 config.py             # 설정 파일
  ┣ 📜 requirements.txt      # 의존성 목록
  ┗ 📜 README.md             # 프로젝트 설명서
-⚖️ 라이선스 및 참고문헌 (License & References)
-License
-이 프로젝트는 MIT License를 따릅니다. 자세한 내용은 LICENSE 파일을 참고하세요.
+```
+ ---
 
-References & Acknowledgements
+### **[Part 3] 라이선스 및 참고문헌**
+
+```markdown
+---
+
+## ⚖️ 라이선스 및 참고문헌 (License & References)
+
+### License
+이 프로젝트는 **MIT License**를 따릅니다. 자세한 내용은 `LICENSE` 파일을 참고하세요.
+
+### References & Acknowledgements
 본 프로젝트는 아래 논문의 방법론을 참조 및 응용하여 구현되었습니다.
 
-[1] Cha, S., Park, J., Choi, H., Ryu, H., & Seo, K. (2025, April). CLONE: Synthetic Guideline-based Clinical Reasoning with Large Language Models for Early Diagnosis of Mild Cognitive Impairment. In Proceedings of the Extended Abstracts of the CHI Conference on Human Factors in Computing Systems (pp. 1-14).
-[2] Shimojo, S., Simion, C., Shimojo, E., & Scheier, C. (2003). Gaze bias both reflects and influences preference. Nature neuroscience, 6(12), 1317-1322
-[3] Wedel, M., Pieters, R., & van der Lans, R. (2023). Modeling eye movements during decision making: A review. psychometrika, 88(2), 697-729.
-[4] Ting, C. C., & Gluth, S. (2024). Unraveling information processes of decision-making with eye-tracking data. Frontiers in Behavioral Economics, 3, 1384713.
+* **[1]** Cha, S., Park, J., Choi, H., Ryu, H., & Seo, K. (2025, April). **CLONE: Synthetic Guideline-based Clinical Reasoning with Large Language Models for Early Diagnosis of Mild Cognitive Impairment.** *In Proceedings of the Extended Abstracts of the CHI Conference on Human Factors in Computing Systems (pp. 1-14).*
+* **[2]** Shimojo, S., Simion, C., Shimojo, E., & Scheier, C. (2003). **Gaze bias both reflects and influences preference.** *Nature neuroscience, 6(12), 1317-1322.*
+* **[3]** Wedel, M., Pieters, R., & van der Lans, R. (2023). **Modeling eye movements during decision making: A review.** *Psychometrika, 88(2), 697-729.*
+* **[4]** Ting, C. C., & Gluth, S. (2024). **Unraveling information processes of decision-making with eye-tracking data.** *Frontiers in Behavioral Economics, 3, 1384713.*
 
-EmotiEffLib: https://github.com/monde-s/EmotiEffLib - Efficient facial emotion recognition.
+#### Libraries
+* **EmotiEffLib:** [https://github.com/monde-s/EmotiEffLib](https://github.com/monde-s/EmotiEffLib) - Efficient facial emotion recognition.
+* **Google Generative AI SDK:** [https://pypi.org/project/google-generativeai/](https://pypi.org/project/google-generativeai/)
 
-Google Generative AI SDK: https://pypi.org/project/google-generativeai/
+---
 
-👨‍💻 Contributors
-zion2200 - Main Developer & Researcher
-
-(2025-2 Open Source Software Term Project)
+### 👨‍💻 Contributors
+* **zion2200** - *Main Developer & Researcher*
+* *(2025-2 Open Source Software Term Project)*
