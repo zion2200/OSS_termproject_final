@@ -16,7 +16,7 @@
 
 ## 📺 프로젝트 시연 (Demo)
 
-**CLONE 시스템**이 사용자의 상황을 분석하고, 시선과 자세를 추적하여 최적의 선택지를 추천하는 전체 과정입니다.
+**CLONE framework 기법을 적용한 LLM 시스템**이 사용자의 상황을 분석하고, 시선과 자세를 추적하여 최적의 선택지를 추천하는 전체 과정입니다.
 
 <div align="center">
   <video src="figure/vid.mp4" width="800" controls="controls"></video>
@@ -33,7 +33,7 @@
 
 본 프로젝트는 사용자가 선택지를 읽는 동안의 **비언어적 행동(시선, 자세, 미세 표정)**을 실시간으로 분석하여, 사용자의 무의식적 선호도를 파악하고 최적의 선택지를 추천해주는 **AI 시스템**입니다.
 
-최신 행동 심리학 연구인 **CLONE (Clinical Reasoning via Neuropsychologist Emulation)** 프레임워크[1]를 응용하여, 단순 통계가 아닌 **'전문가 페르소나를 가진 AI 에이전트'**가 행동 데이터를 해석하고 논리적인 추천 근거를 제시합니다.
+최신 LLM 프롬프팅 관련 연구인 **CLONE: Synthetic Guideline-based Clinical Reasoning with Large Language Models for Early Diagnosis of Mild Cognitive Impairment.** 프레임워크[1]를 응용하여, 단순 통계가 아닌 **'전문가 페르소나를 가진 AI 에이전트'**가 행동 데이터를 해석하고 논리적인 추천 근거를 제시합니다.
 
 ### 🎯 핵심 목표
 * **Context-Aware Curation:** 사용자의 현재 상황(맥락)에 맞춰 선택지의 장단점을 설득력 있게 설명
