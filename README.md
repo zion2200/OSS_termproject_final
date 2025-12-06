@@ -125,7 +125,10 @@ License
 References & Acknowledgements
 본 프로젝트는 아래 논문의 방법론을 참조 및 응용하여 구현되었습니다.
 
-[1] Cha, S., et al. (2025). CLONE: Synthetic Guideline-based Clinical Reasoning with Large Language Models for Early Diagnosis of Mild Cognitive Impairment. CHI EA '25. (Methodology Adapted)
+[1] Cha, S., Park, J., Choi, H., Ryu, H., & Seo, K. (2025, April). CLONE: Synthetic Guideline-based Clinical Reasoning with Large Language Models for Early Diagnosis of Mild Cognitive Impairment. In Proceedings of the Extended Abstracts of the CHI Conference on Human Factors in Computing Systems (pp. 1-14).
+[2] Shimojo, S., Simion, C., Shimojo, E., & Scheier, C. (2003). Gaze bias both reflects and influences preference. Nature neuroscience, 6(12), 1317-1322
+[3] Wedel, M., Pieters, R., & van der Lans, R. (2023). Modeling eye movements during decision making: A review. psychometrika, 88(2), 697-729.
+[4] Ting, C. C., & Gluth, S. (2024). Unraveling information processes of decision-making with eye-tracking data. Frontiers in Behavioral Economics, 3, 1384713.
 
 EmotiEffLib: https://github.com/monde-s/EmotiEffLib - Efficient facial emotion recognition.
 
